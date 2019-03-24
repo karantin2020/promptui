@@ -369,3 +369,24 @@ func AskMasked(label, startString string) (string, error) {
 	}
 	return p.Run()
 }
+
+// PromptAfterSelect func is predefined easy confirm promp
+var PromptAfterSelect = func(label string, answers []string) (string, error) {
+	s := Select{
+		Label:   label,
+		Items:   answers,
+		Default: 0,
+	}
+	_, rs, err := s.Run()
+	if err != nil {
+		return rs, err
+	}
+	fmt.Print(upLine(1) + clearLine)
+	p := Prompt{
+		BasicPrompt: BasicPrompt{
+			Label:   label,
+			Default: rs,
+		},
+	}
+	return p.Run()
+}

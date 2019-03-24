@@ -86,6 +86,7 @@ func main() {
 	}
 	_, res, err := s.Run()
 	checkError(res, err)
+	checkError(bb.PromptAfterSelect("prompt after select", []string{"feat", "fix", "doc", "other"}))
 }
 
 func checkError(res string, err error) {

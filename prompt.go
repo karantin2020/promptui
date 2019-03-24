@@ -371,7 +371,7 @@ func AskMasked(label, startString string) (string, error) {
 }
 
 // PromptAfterSelect func is predefined easy confirm promp
-var PromptAfterSelect = func(label string, answers []string) (string, error) {
+func PromptAfterSelect(label string, answers []string) (string, error) {
 	s := Select{
 		Label:   label,
 		Items:   answers,

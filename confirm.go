@@ -163,7 +163,7 @@ func setupConfirm(c *readline.Config, prompt string,
 }
 
 // Confirm func is predefined easy confirm promp
-var Confirm = func(label, answer string, noIcons bool) (string, error) {
+func Confirm(label, answer string, noIcons bool) (string, error) {
 	cp := ConfirmPrompt{
 		BasicPrompt: BasicPrompt{
 			Label:   label,

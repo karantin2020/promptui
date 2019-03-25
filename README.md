@@ -4,6 +4,9 @@
 
 A library for building interactive prompts.
 
+
+![demo](https://github.com/karantin2020/promptui/raw/master/examples/screen.gif)
+
 See `examples/main.go`.  
 
 ```go

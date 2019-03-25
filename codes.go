@@ -45,6 +45,16 @@ func upLine(n uint) string {
 	return movementCode(n, 'A')
 }
 
+// UpLine move cursor one line above
+func UpLine() string {
+	return movementCode(1, 'A')
+}
+
+// ClearUpLine is Upline and clear that line
+func ClearUpLine() string {
+	return UpLine() + clearLine
+}
+
 func downLine(n uint) string {
 	return movementCode(n, 'B')
 }

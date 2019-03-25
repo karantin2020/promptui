@@ -79,7 +79,11 @@ func (cp *ConfirmPrompt) Run() (string, error) {
 	cp.out = strings.ToUpper(cp.out)
 	cp.state = cp.IconGood
 	cp.out = cp.Formatter(cp.out)
-	cp.rl.Write([]byte(cp.Indent + cp.state + " " + cp.prompt + cp.InputResult(cp.out) + "\n"))
+	separator := " "
+	if cp.NoIcons {
+		separator = ""
+	}
+	cp.rl.Write([]byte(cp.Indent + cp.state + separator + cp.prompt + cp.InputResult(cp.out) + "\n"))
 	return cp.out, err
 }
 

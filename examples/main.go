@@ -42,6 +42,15 @@ func main() {
 	checkError(c.Run())
 	checkError(bb.Confirm("easy confirm", "Y", false))
 
+	s := bb.Select{
+		Label:   "test select",
+		Items:   []string{"one", "two", "three", "1one", "1two", "1three", "2one", "2two", "2three"},
+		Default: 3,
+	}
+	_, res, err := s.Run()
+	checkError(res, err)
+	checkError(bb.PromptAfterSelect("prompt after select", []string{"feat", "fix", "doc", "other"}))
+
 	ml := bb.MultilinePrompt{
 		BasicPrompt: bb.BasicPrompt{
 			Label:   "test multiline",
@@ -79,14 +88,6 @@ func main() {
 	checkError(ml.Run())
 	checkError(bb.MultiLine("easy multi", "Ready to go"))
 
-	s := bb.Select{
-		Label:   "test select",
-		Items:   []string{"one", "two", "three", "1one", "1two", "1three", "2one", "2two", "2three"},
-		Default: 3,
-	}
-	_, res, err := s.Run()
-	checkError(res, err)
-	checkError(bb.PromptAfterSelect("prompt after select", []string{"feat", "fix", "doc", "other"}))
 }
 
 func checkError(res string, err error) {

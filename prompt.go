@@ -328,12 +328,13 @@ func (p *Prompt) Run() (string, error) {
 		return "", err
 	}
 
+	p.out = p.Formatter(p.out)
+
 	echo := p.out
 	if p.Mask != 0 {
 		echo = strings.Repeat(string(p.Mask), len([]rune(echo)))
 	}
 
-	p.out = p.Formatter(p.out)
 	p.rl.Write([]byte(p.Indent + p.state + " " + p.prompt + p.InputResult(echo) + "\n"))
 
 	return p.out, err
@@ -371,6 +372,7 @@ func AskMasked(label, startString string) (string, error) {
 }
 
 // PromptAfterSelect func is predefined easy confirm promp
+// Answers may contain option description wrapped in `[]`
 func PromptAfterSelect(label string, answers []string) (string, error) {
 	s := Select{
 		Label:   label,
@@ -380,6 +382,9 @@ func PromptAfterSelect(label string, answers []string) (string, error) {
 	_, rs, err := s.Run()
 	if err != nil {
 		return rs, err
+	}
+	if i := strings.Index(rs, "["); i > -1 {
+		rs = strings.TrimSpace(rs[:i])
 	}
 	fmt.Print(upLine(1) + clearLine)
 	p := Prompt{

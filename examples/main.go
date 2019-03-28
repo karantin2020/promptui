@@ -86,6 +86,54 @@ func main() {
 	}
 	// ml.InputResult = bb.Styler(bb.FGCyan)
 	checkError(ml.Run())
+
+	mle := bb.MultilinePrompt{
+		BasicPrompt: bb.BasicPrompt{
+			Label:   "test multiline onError",
+			Default: "Request",
+			Validate: func(s string) error {
+				// fmt.Println("Validate multiline")
+				if s == "Err" {
+					// fmt.Println("input must not be equal to 'err'")
+					return bb.NewValidationError("input must not be equal to 'err'")
+				}
+				if s == "" {
+					// fmt.Println("input must not be empty string")
+					return bb.NewValidationError("input must not be empty string")
+				}
+				return nil
+			},
+		},
+		OnError: func(s string) (string, error) {
+			// numlines := 0
+			defer func() {
+				fmt.Print(bb.ClearUpLines(1))
+			}()
+			for {
+				yn, oerr := bb.Confirm("Edit test multiline", "", true)
+				// numlines++
+				if oerr != nil {
+					return s, oerr
+				}
+				if yn == "Y" {
+					s, oerr = bb.Editor("", s)
+					if oerr != nil {
+						// bb.ClearUpLines(numlines)
+						return s, oerr
+					}
+					fmt.Print(bb.ClearUpLines(1))
+					continue
+				} else {
+					// fmt.Print(bb.ClearUpLines(1))
+					break
+				}
+			}
+			return s, nil
+		},
+	}
+	// mle.InputResult = bb.Styler(bb.FGCyan)
+	checkError(mle.Run())
+
 	checkError(bb.MultiLine("easy multi", "Ready to go"))
 
 }

@@ -52,7 +52,12 @@ func UpLine() string {
 
 // ClearUpLine is Upline and clear that line
 func ClearUpLine() string {
-	return UpLine() + clearLine
+	return clearLine + UpLine() + clearLine
+}
+
+// ClearUpLines is Upline and clear that line
+func ClearUpLines(n int) string {
+	return clearLine + strings.Repeat(UpLine()+clearLine, n)
 }
 
 func downLine(n uint) string {

@@ -14,6 +14,10 @@ import (
 type MultilinePrompt struct {
 	BasicPrompt
 
+	// OnError func is called when prompt.Run() return error
+	// alternative way to fix error
+	OnError func(string) (string, error)
+
 	// Editor is default editor to edit multiline
 	Editor string
 }
@@ -106,6 +110,9 @@ func (mp *MultilinePrompt) Run() (string, error) {
 		mp.rl.Write([]byte(mp.Indent + mp.state + " " + mp.prompt + "\n" + mp.InputResult(mp.out) + "\n"))
 		numlines++
 		if oerr != nil {
+			if mp.OnError != nil {
+				return mp.OnError(mp.out)
+			}
 			mp.rl.Write([]byte(red("Error: ") + msg + "\n"))
 			numlines++
 			var yn string

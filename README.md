@@ -1,6 +1,6 @@
 # PromptUI
 
-[![GoDoc](http://img.shields.io/badge/godoc-reference-5272B4.svg)](https://godoc.org/github.com/karantin2020/promptui)
+[![GoDoc](https://godoc.org/github.com/karantin2020/promptui?status.svg)](github.com/karantin2020/promptui) [![Go Report Card](https://goreportcard.com/badge/github.com/karantin2020/promptui)](https://goreportcard.com/report/github.com/karantin2020/promptui) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A library for building interactive prompts.
 

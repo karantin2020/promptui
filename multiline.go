@@ -126,6 +126,10 @@ func (mp *MultilinePrompt) Run() (string, error) {
 				if oerr != nil {
 					return mp.out, oerr
 				}
+				clearLines(numlines)
+				numlines = uint(len(strings.Split(mp.out, "\n")))
+				mp.rl.Write([]byte(mp.Indent + mp.state + " " + mp.prompt + "\n" + mp.InputResult(mp.out) + "\n"))
+				numlines++
 				continue
 			} else {
 				clearLines(2)
